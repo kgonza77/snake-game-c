@@ -10,8 +10,9 @@
 build/
 dist/
 
-# VS Code local settings
-.vscode/
+# VS Code configuration
+.vscode/*
+!.vscode/tasks.json
 
 # Temporary files
 *.tmp

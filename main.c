@@ -1,29 +1,37 @@
-#include <stdio.h>
+
 #include "raylib.h"
 
 int main(void)
 {
-    // Creates a 800px by 600px window with the title "Snake Game"
-    InitWindow(800, 600, "Snake Game");
+    // Window dimensions
+    int screenWidth = 800;
+    int screenHeight = 600;
 
-    // Set the game to run at 60 frames per second
+    // Snake position
+    int snakeX = 400;
+    int snakeY = 250;
+
+    // Size of each snake segment
+    int snakeSize = 20;
+
+    // Create the game window
+    InitWindow(screenWidth, screenHeight, "Snake Game");
     SetTargetFPS(60);
 
-    // Keep the game running until the window is closed
+    // Main game loop
     while (!WindowShouldClose())
     {
         BeginDrawing();
 
-        // Fill the window with a dark background
+        // Draw the background
         ClearBackground(DARKGRAY);
 
-        // Draw some text on the screen
-        DrawText("Hungry Snake!", 250, 250, 30, GREEN);
+        // Draw the snake
+        DrawRectangle(snakeX, snakeY, snakeSize, snakeSize, GREEN);
 
         EndDrawing();
     }
 
-    // Close the window when the game ends
     CloseWindow();
 
     return 0;

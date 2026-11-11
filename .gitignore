@@ -1,0 +1,18 @@
+
+# Compiled Windows executables
+*.exe
+
+# Object files
+*.o
+*.obj
+
+# Build directories
+build/
+dist/
+
+# VS Code local settings
+.vscode/
+
+# Temporary files
+*.tmp
+*.log

@@ -13,8 +13,14 @@ int main(void)
 
     // Size of each snake segment
     int snakeSize = 20;
-    //Movement speed of the snake
-    int snakeSpeed = 5;
+
+    //Snake movement direction
+    int directionX = 1;
+    int directionY = 0;
+
+    // Control how often the snake moves (in seconds)
+    float moveTimer = 0.0f;
+    float moveInterval = 0.2f; // Move every 0.2 seconds
 
     // Create the game window
     InitWindow(screenWidth, screenHeight, "Snake Game");
@@ -23,11 +29,42 @@ int main(void)
     // Main game loop
     while (!WindowShouldClose()){
 
-        //handle keyboard input for movement
-        if (IsKeyDown(KEY_UP)) {snakeY -= snakeSpeed;} //same as snakeY = snakeY - snakeSpeed;
-        if (IsKeyDown(KEY_DOWN)) {snakeY += snakeSpeed;} //same as snakeY = snakeY + snakeSpeed;
-        if (IsKeyDown(KEY_LEFT)) {snakeX -= snakeSpeed;} //same as snakeX = snakeX - snakeSpeed;
-        if (IsKeyDown(KEY_RIGHT)) {snakeX += snakeSpeed;} //same as snakeX = snakeX + snakeSpeed;
+        //Handle keyboard input to change direction
+        if (IsKeyDown(KEY_UP) && directionY != 1) 
+        {
+            directionY = -1; 
+            directionX = 0;
+        }
+
+        if (IsKeyDown(KEY_DOWN) && directionY != -1) 
+        {
+            directionY = 1; 
+            directionX = 0;
+        }
+        
+        if (IsKeyDown(KEY_LEFT) && directionX != 1) 
+        {
+            directionX = -1; 
+            directionY = 0;
+        }
+        
+        if (IsKeyDown(KEY_RIGHT) && directionX != -1) 
+        {
+            directionX = 1; 
+            directionY = 0;
+        }
+
+        // Add the time since the last frame to the move timer
+        moveTimer += GetFrameTime();
+
+        // Move the snake only if the move timer exceeds the move interval
+        if (moveTimer >= moveInterval)
+        {
+            snakeX += directionX * snakeSize;
+            snakeY += directionY * snakeSize;
+
+            moveTimer = 0.0f;
+        }
 
         BeginDrawing();
 

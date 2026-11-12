@@ -18,7 +18,7 @@ int main(void)
     int directionX = 1;
     int directionY = 0;
 
-    // Control how often the snake moves (in frames)
+    // Control how often the snake moves (in seconds)
     float moveTimer = 0.0f;
     float moveInterval = 0.2f; // Move every 0.2 seconds
 

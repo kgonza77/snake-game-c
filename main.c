@@ -1,5 +1,6 @@
 
 #include "raylib.h"
+#include "snake.h"
 
 int main(void)
 {
@@ -7,16 +8,14 @@ int main(void)
     int screenWidth = 800;
     int screenHeight = 600;
 
-    // Snake position
-    int snakeX = 400;
-    int snakeY = 250;
-
-    // Size of each snake segment
-    int snakeSize = 20;
-
-    //Snake movement direction
-    int directionX = 1;
-    int directionY = 0;
+    // Create the snake
+    Snake snake = {
+        400,  // x
+        250,  // y
+        20,   // size
+        1,    // directionX
+        0     // directionY
+    };
 
     // Control how often the snake moves (in seconds)
     float moveTimer = 0.0f;
@@ -29,29 +28,25 @@ int main(void)
     // Main game loop
     while (!WindowShouldClose()){
 
-        //Handle keyboard input to change direction
-        if (IsKeyDown(KEY_UP) && directionY != 1) 
+        // Handle keyboard input
+        if (IsKeyDown(KEY_UP))
         {
-            directionY = -1; 
-            directionX = 0;
+            ChangeSnakeDirection(&snake, 0, -1);
         }
 
-        if (IsKeyDown(KEY_DOWN) && directionY != -1) 
+        if (IsKeyDown(KEY_DOWN))
         {
-            directionY = 1; 
-            directionX = 0;
+            ChangeSnakeDirection(&snake, 0, 1);
         }
-        
-        if (IsKeyDown(KEY_LEFT) && directionX != 1) 
+
+        if (IsKeyDown(KEY_LEFT))
         {
-            directionX = -1; 
-            directionY = 0;
+            ChangeSnakeDirection(&snake, -1, 0);
         }
-        
-        if (IsKeyDown(KEY_RIGHT) && directionX != -1) 
+
+        if (IsKeyDown(KEY_RIGHT))
         {
-            directionX = 1; 
-            directionY = 0;
+            ChangeSnakeDirection(&snake, 1, 0);
         }
 
         // Add the time since the last frame to the move timer
@@ -60,8 +55,7 @@ int main(void)
         // Move the snake only if the move timer exceeds the move interval
         if (moveTimer >= moveInterval)
         {
-            snakeX += directionX * snakeSize;
-            snakeY += directionY * snakeSize;
+            MoveSnake(&snake);
 
             moveTimer = 0.0f;
         }
@@ -72,7 +66,13 @@ int main(void)
         ClearBackground(DARKGRAY);
 
         // Draw the snake
-        DrawRectangle(snakeX, snakeY, snakeSize, snakeSize, GREEN);
+        DrawRectangle(
+            snake.x,
+            snake.y,
+            snake.size,
+            snake.size,
+            GREEN
+        );
 
         EndDrawing();
     }

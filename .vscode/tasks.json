@@ -1,5 +1,6 @@
-// ONLY BUILD THE GAME with Ctrl + Shift + B
+// BUILD THE GAME with Ctrl + Shift + B
 // To execute the program, run: .\build\snake.exe
+// Run "Test Snake Game" from VS Code Tasks to execute automated tests
 
 {
     "version": "2.0.0",
@@ -20,6 +21,24 @@
                 "isDefault": true
             },
             "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "Test Snake Game",
+            "type": "shell",
+            "command": "ctest",
+            "args": [
+                "--test-dir",
+                "build",
+                "--output-on-failure"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "dependsOn": [
+                "Build Snake Game"
+            ],
+            "dependsOrder": "sequence",
+            "problemMatcher": []
         }
     ]
 }
